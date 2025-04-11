@@ -1,0 +1,12 @@
+provider: autogen_ext.models.openai.OpenAIChatCompletionClient
+config:
+  model: ep-20250408105510-nt22m
+  base_url: https://ark.cn-beijing.volces.com/api/v3
+  api_key: 3a0bd8ce-c313-4c27-8cd0-0fc4fa80c5b0
+  temperature: 0.2
+  model_info:
+    json_output: False
+    function_calling: True
+    vision: False
+    family: unknown
+    structured_output: True
