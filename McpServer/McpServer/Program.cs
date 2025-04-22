@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 //var builder = Host.CreateApplicationBuilder(args);
 var builder = WebApplication.CreateBuilder(args);
