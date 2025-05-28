@@ -6,7 +6,7 @@ from autogen_core import CancellationToken
 from autogen_core.models import ChatCompletionClient
 from autogen_ext.tools.mcp import StdioServerParams, mcp_server_tools, SseServerParams, SseMcpToolAdapter
 from autogen_agentchat.teams import RoundRobinGroupChat
-from autogen_agentchat.conditions import TextMentionTermination
+from autogen_agentchat.conditions import TextMentionTermination, TextMessageTermination
 from typing import AsyncGenerator
 
 
@@ -60,7 +60,8 @@ class Agent:
         "When tool returns a VisualizationType of 2, DO NOT include markdown table in your response, and do not list the tool result in your response!!!. " \
         "for tools that produces no error, respond with the EXACT words translated into user's language, and DO NOT SAY ANTHING ELSE: The result will be presented below." \
         "for tools that produces an error, tell the user that you cannot produce a result. Double check the tool and parameter description. Make sure for parameters that specifically require user input, a valid user input is provided. If not, prompt the user accordingly. ".format(tempDir = tempFileDir)
-        self.agent = AssistantAgent(
+# Double check the tool and parameter description. Make sure for parameters that specifically require user input, a valid user input is provided. If not, prompt the user accordingly. 
+        singleAgent = AssistantAgent(
             name="assistant",
             model_client=model_client,
             model_client_stream=True,
@@ -68,9 +69,10 @@ class Agent:
             tools=tools,
             reflect_on_tool_use=True,
         )
+        self.agent = singleAgent
         # self.agent = RoundRobinGroupChat(
         #     [singleAgent],
-        #     termination_condition = TextMentionTermination("TERMINATE")
+        #     termination_condition = TextMessageTermination("assistant")
         # )
     async def chat(self, prompt: str) -> AsyncGenerator[BaseAgentEvent | BaseChatMessage | Response, None]:
         # return self.agent.run_stream(
