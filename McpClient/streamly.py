@@ -32,6 +32,7 @@ CHAT_HISTORY_VISUALIZATION_KEY = "Visualization"
 AGENT_KEY = "agent"
 STT_SOCKET_KEY = "sttSocket"
 TEMP_FILE_DIR_KEY = "tempFileDir"
+EVENT_LOOP_KEY = "asyncEventLoop"
 USER_AVATAR_IMG = "imgs/stuser.png"
 ASSISTANT_AVATAR_IMG = "imgs/avatar_streamly.png"
 
@@ -42,37 +43,12 @@ logging.basicConfig(level=logging.INFO)
 NUMBER_OF_MESSAGES_TO_DISPLAY = 20
 API_DOCS_URL = "https://docs.streamlit.io/library/api-reference"
 
-# Retrieve and validate API key
-# OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", None)
-# if not OPENAI_API_KEY:
-#     st.error("Please add your OpenAI API key to the Streamlit secrets.toml file.")
-#     st.stop()
-
-# # Assign OpenAI API Key
-# openai.api_key = OPENAI_API_KEY
-# client = openai.OpenAI()
-
 # Streamlit Page Configuration
 st.set_page_config(
     page_title="MADS - A Spectral AI Assistant",
     page_icon="imgs/avatar_streamly.png",
     # layout="wide",
     initial_sidebar_state="auto",
-    # menu_items={
-    #     "Get help": "https://github.com/AdieLaine/Streamly",
-    #     "Report a bug": "https://github.com/AdieLaine/Streamly",
-    #     "About": """
-    #         ## Streamly Streamlit Assistant
-    #         ### Powered using GPT-4o-mini
-
-    #         **GitHub**: https://github.com/AdieLaine/
-
-    #         The AI Assistant named, Streamly, aims to provide the latest updates from Streamlit,
-    #         generate code snippets for Streamlit widgets,
-    #         and answer questions about Streamlit's latest features, issues, and more.
-    #         Streamly has been trained on the latest Streamlit updates and documentation.
-    #     """
-    # }
 )
 
 # Streamlit Title
@@ -113,18 +89,6 @@ def ProcessTaskResult(streamedText: str, result: TaskResult) -> str:
                 visualizationData = pandas.read_json(json.dumps(resJson['VisualizationResult']))
                 print(visualizationData)
                 st.dataframe(visualizationData, column_config=config)
-                # st.table(resJson['result'])
-        # resContent = re.search(r'\(.*\)', execRes)
-        # res = re.findall(r'(\w*)=([^\,]+)', resContent.group(0).strip("()"))
-        # propertyDict = {}
-        # for property in res:
-        #     propertyDict[property[0]] = property[1]
-        # path = propertyDict.get("text", "").strip("\'")
-        # print(path)
-        # if os.path.isfile(path):
-        #     return path
-        # else:
-        #     return ""
     st.session_state.messages.append({CHAT_HISTORY_ROLE_KEY: "assistant", CHAT_HISTORY_TEXT_KEY: streamedText, CHAT_HISTORY_VISUALIZATION_TYPE_KEY: visualizationType, CHAT_HISTORY_VISUALIZATION_KEY: visualizationData})
     return ""
 
@@ -333,26 +297,12 @@ async def main():
                 prompt = userInput
             else:
                 prompt = audioInput
-            # if userInput and len(userInput["files"]) != 0:
-            #     uploadedFile = userInput["files"][0]
-            #     filePath = pathlib.Path(st.session_state.tempFileDir.name)/"data.csv"
-            #     print(uploadedFile)
-            #     if uploadedFile is not None:
-            #         print("writing file")
-            #         f = open(filePath, 'wb')
-            #         f.write(uploadedFile.read())
-            #         f.close()
             await HandleUserInput(prompt)
-
-        # Display chat history
-        # for message in st.session_state.history[-NUMBER_OF_MESSAGES_TO_DISPLAY:]:
-        #     role = message["role"]
-        #     avatar_image = "imgs/avatar_streamly.png" if role == "assistant" else "imgs/stuser.png" if role == "user" else None
-        #     with st.chat_message(role, avatar=avatar_image):
-        #         st.write(message["content"])
-
 if __name__ == "__main__":
-    asyncio.run(main())
-    # testStr = "[TextContent(type=\'text\', text=\'{\"IsError\":false,\"Result\":{\"Name\":[\"Blue-Triarylcarbonium (PTMA salt)\"],\"ChemicalFormulas\":[\"unknown\"],\"TrustScores\":[129.99],\"Images\":[\"![]()\"]},\"FilePath\":\"\",\"VisualizationType\":2}\', annotations=None)]"
-    # res = re.search(r'text=\'(.*)\'', testStr)
-    # print(res.group(0))
+    if EVENT_LOOP_KEY not in st.session_state:
+        loop = asyncio.new_event_loop()
+        st.session_state[EVENT_LOOP_KEY] = loop
+    else:
+        loop = st.session_state[EVENT_LOOP_KEY]
+    loop.run_until_complete(main())
+    # asyncio.run(main())

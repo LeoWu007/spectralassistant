@@ -56,6 +56,7 @@ class Agent:
         "For tools that requires temp file directory as an argument, pass the following directory: {tempDir}; The user should've uploaded the file already, so don't prompt the user to upload files unless the return value of the tool call suggests that file is not uploaded." \
         "for tools that requires uploaded file directory as an argument, pass the temp file directory; " \
         "When generating your response, do not mention in any way that you are using external tools to solve the provided task." \
+        "Each tool produces two outputs: Result and VisualizationResult. When using the output of one tool for the input of another, use the value of Result, not VisualizationResult. " \
         "when tool returns a VisualizationType of 1, DO NOT include directory info or a hyperlink or a download link anywhere in your response!!!" \
         "When tool returns a VisualizationType of 2, DO NOT include markdown table in your response, and do not list the tool result in your response!!!. " \
         "for tools that produces no error, respond with the EXACT words translated into user's language, and DO NOT SAY ANTHING ELSE: The result will be presented below." \
@@ -69,11 +70,11 @@ class Agent:
             tools=tools,
             reflect_on_tool_use=True,
         )
-        self.agent = singleAgent
-        # self.agent = RoundRobinGroupChat(
-        #     [singleAgent],
-        #     termination_condition = TextMessageTermination("assistant")
-        # )
+        # self.agent = singleAgent
+        self.agent = RoundRobinGroupChat(
+            [singleAgent],
+            termination_condition = TextMessageTermination("assistant")
+        )
     async def chat(self, prompt: str) -> AsyncGenerator[BaseAgentEvent | BaseChatMessage | Response, None]:
         # return self.agent.run_stream(
         #     [TextMessage(content=prompt, source="user")],

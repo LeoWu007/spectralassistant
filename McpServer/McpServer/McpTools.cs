@@ -60,14 +60,20 @@ namespace McpServer
                 double newvaleu = Polynomial.Evaluate(i, c);
                 result[i] = newvaleu;
             }
-            var resultPath = Path.Combine(Directory.GetCurrentDirectory(), "result_smooth.csv");
-            if (!ioCtrl.WriteData(resultPath, x, new List<IList<double>>() { y, result }, new List<string>() { "Original Data", "Smoothed Data" }))
+            if (!ioCtrl.WriteData(x, result, out var tempPath))
             {
                 toolRes.IsError = true;
                 toolRes.Result = "Failed to write result file";
                 return toolRes.ToJson();
             }
-            toolRes.VisualizationResult = resultPath;
+            if (!ioCtrl.WriteVisualizationData(x, new List<IList<double>>() { y, result }, new List<string>() { "Original Data", "Smoothed Data" }, out var resPath))
+            {
+                toolRes.IsError = true;
+                toolRes.Result = "Failed to write result file";
+                return toolRes.ToJson();
+            }
+            toolRes.Result = tempPath;
+            toolRes.VisualizationResult = resPath;
             return toolRes.ToJson();
         }
         [McpServerTool, Description("Read data from uploaded file, use AirPLS algorithm to remove baseline, and returns the path where the processed data is saved")]
@@ -89,14 +95,20 @@ namespace McpServer
             double[] corrected = new double[origSig.Count()];
             double[] baseline = new double[origSig.Count()];
             AirPLS_AMPD.airPLS(origSig, corrected, baseline, origSig.Count(), lambda, itermax);
-            var resultPath = Path.Combine(Directory.GetCurrentDirectory(), "result_baseline.csv");
-            if (!ioCtrl.WriteData(resultPath, x, new List<IList<double>>() { origSig, corrected, baseline }, new List<string>() { "Original Data", "Data(no baseline)", "baseline" }))
+            if (!ioCtrl.WriteData(x, corrected, out var tempPath))
             {
                 toolRes.IsError = true;
                 toolRes.Result = "Failed to write result file";
                 return toolRes.ToJson();
             }
-            toolRes.VisualizationResult = resultPath;
+            if (!ioCtrl.WriteVisualizationData( x, new List<IList<double>>() { origSig, corrected, baseline }, new List<string>() { "Original Data", "Data(no baseline)", "baseline" }, out var resPath))
+            {
+                toolRes.IsError = true;
+                toolRes.Result = "Failed to write result file";
+                return toolRes.ToJson();
+            }
+            toolRes.Result = tempPath;
+            toolRes.VisualizationResult = resPath;
             return toolRes.ToJson();
         }
         [McpServerTool, Description("Read data from uploaded file, and perform Raman analysis on said data based on the database specified by type parameter. type parameter should be specified by user. ")]
