@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,12 @@ namespace McpServer
         public required VisualizationType VisualizationType { get; set; } = VisualizationType.None;
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this, new JsonSerializerSettings
+            var res = JsonConvert.SerializeObject(this, new JsonSerializerSettings
             {
                 Formatting = Formatting.None
             });
+            Console.WriteLine(res);
+            return res;
         }
     }
 }

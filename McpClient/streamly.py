@@ -67,10 +67,12 @@ def ProcessTaskResult(streamedText: str, result: TaskResult) -> str:
         print("parsing result")
         execRes = message.content[-1].content
 
-        resJsonStr = re.findall(r'text=\'(.*)\'', execRes)
+        resJsonStr = re.findall(r'"text": "(.*)",', execRes)
         if len(resJsonStr) == 0:
             continue
-        resJson = json.loads(resJsonStr[0])
+        resFormatted = resJsonStr[0].replace(r"\\", "\\").replace(r"\"", "\"")
+        print(resJsonStr)
+        resJson = json.loads(resFormatted)
         if resJson['IsError'] is True:
             print("Tool returned error, abort")
             continue
@@ -80,6 +82,7 @@ def ProcessTaskResult(streamedText: str, result: TaskResult) -> str:
                 continue
             case 1:
                 if os.path.isfile(resJson['VisualizationResult']):
+                    print("plotting data")
                     visualizationData = PlotData(resJson['VisualizationResult'])
             case 2:
                 config = {
@@ -183,7 +186,7 @@ async def initialize_session_state():
         st.session_state[AGENT_KEY] = curAgent
     if STT_SOCKET_KEY not in st.session_state:
         clientSocket = socket(AF_INET, SOCK_STREAM)
-        clientSocket.connect(('192.168.100.18', 41100))
+        clientSocket.connect(('127.0.0.1', 41100))
         st.session_state[STT_SOCKET_KEY] = clientSocket
 
 async def main():

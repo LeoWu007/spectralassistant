@@ -2,6 +2,7 @@
 using Microsoft.Extensions.AI;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RamanAnalyzeModel;
 using RamanAnalyzeModel.Model;
 using System;
