@@ -1,2 +1,6 @@
 # spectralassistant
-The First Spectral AI Assistant
+
+<p align="center">
+  <img src="assets/mads.png" alt="Mads Logo" />
+</p>
+
