@@ -134,7 +134,7 @@ namespace McpServer
             else
             {
                 toolRes.IsError = false;
-                var ramanRes = RamanAnalysisResult.FromMaterialAnalysisResult(algRes.OrderByDescending(r => r.TrustScore));
+                var ramanRes = RamanAnalysisResult.FromMaterialAnalysisResult(algRes.OrderByDescending(r => r.TrustScore), type);
                 toolRes.VisualizationResult = ramanRes;
                 toolRes.Result = "Success!";
             }
