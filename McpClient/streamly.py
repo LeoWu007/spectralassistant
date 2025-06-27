@@ -14,7 +14,10 @@ import re
 import pandas
 from pandas import DataFrame
 from pathlib import Path
-from agent import Agent
+from managerAgent import ManagerAgent
+from dataImportAgent import DataImportAgent
+from teamManager import TeamManager
+from outputAgent import OutputAgent
 from autogen_agentchat.messages import ThoughtEvent, ModelClientStreamingChunkEvent, ToolCallExecutionEvent
 from autogen_agentchat.base import TaskResult
 from autogen_core.models import FunctionExecutionResult
@@ -23,6 +26,7 @@ from audiorecorder import audiorecorder
 from socket import *
 import pickle
 import json
+import agentNames
 
 CHAT_HISTORY_KEY = "messages"
 CHAT_HISTORY_ROLE_KEY = "role"
@@ -56,6 +60,10 @@ st.title("The First Spectral AI Assistant")
 # Version
 st.markdown('<small> v0.7 Beta </small>', unsafe_allow_html=True)
 
+def TruncateCsv(fileName, rows, cols) -> str:
+    df = pandas.read_csv(fileName, nrows=rows, on_bad_lines='skip')
+    df_subset = df.iloc[:, :cols]
+    return df_subset.to_string()
 def ProcessTaskResult(streamedText: str, result: TaskResult) -> str:
     visualizationType = None
     visualizationData = None
@@ -105,21 +113,28 @@ def PlotDataframe(dataframe: DataFrame) :
     chart = st.line_chart(dataframe, x=columnNames[0], y_label="Y")
     return chart
 
-async def HandleUserInput(prompt: str) : 
+async def HandleUserInput(prompt: str, uploadedFile: str) : 
     st.session_state["messages"].append({"role": "user", "content": prompt})
     with st.chat_message("user", avatar = USER_AVATAR_IMG):
         st.markdown(prompt)
     with st.chat_message("assistant", avatar = ASSISTANT_AVATAR_IMG):
         container = st.empty()
-        responseStream = st.session_state["agent"].chat(prompt)
+        print("path: " + uploadedFile)
+        if uploadedFile == "":
+            print("no upload file")
+            chatMsg = prompt
+        else:
+            print("upload file detected")
+            chatMsg = prompt + "\n用户上传文件路径: " + uploadedFile + "\n数据内容: " + TruncateCsv(uploadedFile, 20, 20)
+        responseStream = st.session_state["agent"].chat(chatMsg)
         print("got response stream")
         streamedText = ""
         async for chunk in responseStream:
             print(chunk)
-            if isinstance(chunk, ThoughtEvent):
+            if isinstance(chunk, ThoughtEvent) and chunk.source is agentNames.outputAgentName:
                 streamedText = streamedText + "\n\n"
                 container.markdown(streamedText) 
-            elif isinstance(chunk, ModelClientStreamingChunkEvent):
+            elif isinstance(chunk, ModelClientStreamingChunkEvent) and chunk.source is agentNames.outputAgentName:
                 streamedText += chunk.content
                 container.markdown(streamedText) 
             elif isinstance(chunk, TaskResult):
@@ -181,9 +196,15 @@ async def initialize_session_state():
     # st.write(st.session_state.tempFileDir)
     # stramlit reruns the script on every user interaction
     if AGENT_KEY not in st.session_state:
-        curAgent = Agent()
-        await curAgent.Initialize(st.session_state.tempFileDir.name)
-        st.session_state[AGENT_KEY] = curAgent
+        dataImporter = DataImportAgent()
+        await dataImporter.Initialize()
+        manager = ManagerAgent()
+        await manager.Initialize(st.session_state.tempFileDir.name)
+        summarizer = OutputAgent()
+        await summarizer.Initialize()
+        team = TeamManager()
+        team.Initialize([manager.InternalAgent, dataImporter.InternalAgent, summarizer.InternalAgent])
+        st.session_state[AGENT_KEY] = team
     if STT_SOCKET_KEY not in st.session_state:
         clientSocket = socket(AF_INET, SOCK_STREAM)
         clientSocket.connect(('127.0.0.1', 41100))
@@ -235,13 +256,13 @@ async def main():
             )
 
         st.sidebar.markdown("---")
-
+        filePath = ""
         with st.sidebar:
             uploadedFile = st.file_uploader("Upload any attachment here")
-            filePath = pathlib.Path(st.session_state.tempFileDir.name)/"data.csv"
             print(uploadedFile)
             if uploadedFile is not None:
                 print("writing file")
+                filePath = pathlib.Path(st.session_state.tempFileDir.name)/"data.csv"
                 f = open(filePath, 'wb')
                 f.write(uploadedFile.read())
                 f.close()
@@ -273,6 +294,7 @@ async def main():
                     start_style={'border-width': '0px', 'box-shadow': 'none'},
                     stop_style={'color': 'red', 'border-width': '0px', 'box-shadow': 'none'})
                 try:
+                    # raise Exception("")
                     audioBytes = pickle.dumps(audio)
                     print("audio length: ", len(audioBytes))
                     audioBytesLen = len(audioBytes).to_bytes(4, 'big')
@@ -300,7 +322,7 @@ async def main():
                 prompt = userInput
             else:
                 prompt = audioInput
-            await HandleUserInput(prompt)
+            await HandleUserInput(prompt, str(filePath))
 if __name__ == "__main__":
     if EVENT_LOOP_KEY not in st.session_state:
         loop = asyncio.new_event_loop()

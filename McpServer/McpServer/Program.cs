@@ -10,23 +10,39 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 
 //var builder = Host.CreateApplicationBuilder(args);
-var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.ConfigureKestrel(option =>
+var algBuilder = WebApplication.CreateBuilder(args);
+algBuilder.WebHost.ConfigureKestrel(option =>
 {
     option.ListenLocalhost(3001);
 });
 
-builder.Services.AddMcpServer()
+algBuilder.Services.AddMcpServer()
     //.WithStdioServerTransport()
-    .WithTools<McpTools>();
+    .WithTools<AlgorithmTools>();
 
-builder.Logging.AddConsole(options =>
+algBuilder.Logging.AddConsole(options =>
 {
     options.LogToStandardErrorThreshold = LogLevel.Trace;
 });
 
-builder.Services.AddSingleton<DataIO>();
+algBuilder.Services.AddSingleton<DataIO>();
 
-var app = builder.Build();
-app.MapMcp();
-app.Run();
+var algorithmApp = algBuilder.Build();
+algorithmApp.MapMcp();
+
+var importBuilder = WebApplication.CreateBuilder(args);
+importBuilder.WebHost.ConfigureKestrel(option =>
+{
+    option.ListenLocalhost(3002);
+});
+importBuilder.Services.AddMcpServer().WithTools<DataImportTools>();
+importBuilder.Logging.AddConsole(options =>
+{
+    options.LogToStandardErrorThreshold = LogLevel.Trace;
+});
+importBuilder.Services.AddSingleton<DataIO>();
+
+var importApp = importBuilder.Build();
+importApp.MapMcp();
+
+Task.WhenAll(algorithmApp.RunAsync(), importApp.RunAsync()).Wait();

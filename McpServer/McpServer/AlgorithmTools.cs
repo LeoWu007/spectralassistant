@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace McpServer
 {
     [McpServerToolType]
-    public sealed class McpTools
+    public sealed class AlgorithmTools
     {
         [McpServerTool, Description("Read data from uploaded file, apply savitzky-golay filter to smooth the data, and returns the path where the smoothed data is saved")]
         public static string SavitzkyGolayFilter(
