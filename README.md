@@ -7,15 +7,15 @@
 
 ## Key Features
 
-- [**Demosaicing for polarimetric image sensor**](#polarization-demosaicing)
+- [**Identifying the main component information of the substance**](#polarization-demosaicing)
   - Both Monochrome/Color Polarization image sensors (*e.g.*, IMX250MZR / MYR) are supported.
-- [**Analysis of Stokes vector**](#analysis-of-stokes-vector)
+- [**Matching substance related database**](#analysis-of-stokes-vector)
   - Obtain Stokes vector from images captured with a polarization camera or custom setup.
   - Convert Stokes vector to meaningful parameters, such as DoLP, AoLP.
-- [**Analysis of Mueller matrix**](#analysis-of-mueller-matrix)
+- [**Analysis of massive data**](#analysis-of-mueller-matrix)
   - Provide basic Mueller matrix elements, such as polarizer, retarder, and rotator.
   - Obtain Mueller matrix from images captured under a variety of polarimetric conditions by using a least-squares method.
-- [**Visualizing polarimetric images**](#visualizing-polarimetric-images)
+- [**Collaboration with Multi-agent **](#visualizing-polarimetric-images)
   - Apply colormap to polarization images, such as DoLP, AoLP, ToP, and CoP.
   - Visualize the Mueller matrix image in grid form.
 - [**Symbolic Stokes-Mueller computation**](#symbolic-stokes-mueller-computation)
