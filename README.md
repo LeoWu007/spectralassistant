@@ -8,37 +8,26 @@
 ## Key Features
 
 - [**Identifying the main component information of the substance**](#polarization-demosaicing)
-  - Both Monochrome/Color Polarization image sensors (*e.g.*, IMX250MZR / MYR) are supported.
+  - AI will become a "scientific detective" and help you identify the molecular structure of materials in one second, restoring the truth from the microscopic world that is invisible to the naked eye.
+  - Whether it is experimental materials, daily necessities, or complex samples, spectral data can be used for intelligent analysis to quickly identify materials and make accurate judgments.
 - [**Matching substance related database**](#analysis-of-stokes-vector)
-  - Obtain Stokes vector from images captured with a polarization camera or custom setup.
-  - Convert Stokes vector to meaningful parameters, such as DoLP, AoLP.
+  - How to intelligently read, classify and model spectral data.
+  - From material detection to environmental monitoring, how does AI accelerate the analysis process.
+  - Create a unique "high-dimensional spectral knowledge base" to truly unlock the value of experimental data.
 - [**Analysis of massive data**](#analysis-of-mueller-matrix)
-  - Provide basic Mueller matrix elements, such as polarizer, retarder, and rotator.
-  - Obtain Mueller matrix from images captured under a variety of polarimetric conditions by using a least-squares method.
+  - Support multi-dimensional data fusion processing.
+  - Quickly identify anomalies and patterns.
+  - Output visual graphs and human language conclusions.
 - [**Collaboration with Multi-agent**](#visualizing-polarimetric-images)
   - Apply colormap to polarization images, such as DoLP, AoLP, ToP, and CoP.
   - Visualize the Mueller matrix image in grid form.
-- [**Symbolic Stokes-Mueller computation**](#symbolic-stokes-mueller-computation)
-  - Symbolic calculation of the Stokes vector and Mueller matrix to understand complex combinations of optical elements.
 
 ## Dependencies and Installation
 
-- Numpy
-- OpenCV
-- matplotlib
-- SymPy (optional)
+- Mcp
+- Streamlit
+- Python
 
-```sh
-pip install polanalyser
-```
-
-## Polarization Image Dataset
-
-Dataset of images captured by a polarization camera (FLIR, BFS-U3-51S5P-C) is available. You can use these images to learn how to analyze polarization images.
-
-[**[Click here to download the dataset (Google Drive)]**](https://drive.google.com/drive/folders/1vCe9N05to5_McvwyDqxTmLIKz7vRzmbX?usp=sharing)
-
-[![](documents/dataset_overview.png)](https://drive.google.com/drive/folders/1vCe9N05to5_McvwyDqxTmLIKz7vRzmbX?usp=sharing)
 
 ## Usage
 
