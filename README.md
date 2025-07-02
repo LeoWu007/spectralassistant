@@ -90,7 +90,7 @@ print(img_mueller.shape)  # (2048, 2448, 3, 3)
 
 ![](documents/mueller_various.jpg)
 
-
+### Analysis of mueller matrix
 ### Visualizing polarimetric images
 
 ### Stokes vector visualization
