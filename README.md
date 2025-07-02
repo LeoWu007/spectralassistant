@@ -218,4 +218,8 @@ If you find Polanalyser useful, please consider citing as follows:
 
 If you like Polanalyser, you are also interested in the following paper.
 
+<<<<<<< HEAD
 - Ryota Maeda, Shinsaku Hiura, **Polarimetric Light Transport Analysis for Specular Inter-reflection**,  IEEE Transactions on Computational Imaging, 2024. [[Project Page]](https://elerac.github.io/projects/PolarimetricInterreflection/)
+=======
+- Ryota Maeda, Shinsaku Hiura, **Polarimetric Light Transport Analysis for Specular Inter-reflection**,  IEEE Transactions on Computational Imaging, 2024. [[Project Page]](https://elerac.github.io/projects/PolarimetricInterreflection/)
+>>>>>>> github_publish
