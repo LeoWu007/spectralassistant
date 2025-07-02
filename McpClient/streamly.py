@@ -58,10 +58,10 @@ st.set_page_config(
 # Streamlit Title
 st.title("The First Spectral AI Assistant")
 # Version
-st.markdown('<small> v0.7 Beta </small>', unsafe_allow_html=True)
+st.markdown('<small> v0.8 Beta </small>', unsafe_allow_html=True)
 
 def TruncateCsv(fileName, rows, cols) -> str:
-    df = pandas.read_csv(fileName, nrows=rows, on_bad_lines='skip')
+    df = pandas.read_csv(fileName, nrows=rows, on_bad_lines='skip', encoding='mbcs')
     df_subset = df.iloc[:, :cols]
     return df_subset.to_string()
 def ProcessTaskResult(streamedText: str, result: TaskResult) -> str:
