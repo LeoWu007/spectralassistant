@@ -15,7 +15,7 @@
 - [**Analysis of massive data**](#analysis-of-mueller-matrix)
   - Provide basic Mueller matrix elements, such as polarizer, retarder, and rotator.
   - Obtain Mueller matrix from images captured under a variety of polarimetric conditions by using a least-squares method.
-- [**Collaboration with Multi-agent **](#visualizing-polarimetric-images)
+- [**Collaboration with Multi-agent**](#visualizing-polarimetric-images)
   - Apply colormap to polarization images, such as DoLP, AoLP, ToP, and CoP.
   - Visualize the Mueller matrix image in grid form.
 - [**Symbolic Stokes-Mueller computation**](#symbolic-stokes-mueller-computation)
