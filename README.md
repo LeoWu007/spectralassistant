@@ -44,7 +44,7 @@ This technology has achieved remarkable results in many fields. In geological ev
 The combination of optical spectroscopy technology and AI algorithms has revolutionized the ore composition analysis mode. In the future, with the improvement of the spectral database and the continuous optimization of the algorithm, this technology will achieve breakthroughs in the analysis of complex mineral systems and in-situ real-time detection, providing stronger support for mineralogical research and sustainable resource utilization. ​.
 
 <picture>
-  <img alt="identifying" src="assets/01.png">
+  <img alt="identifying" src="assets/02.png">
 </picture>
 
 
