@@ -7,7 +7,7 @@
 
 ## Key Features
 
-- [**Identifying the main component information of the substance**](#polarization-demosaicing)
+- [**Identifying the main component information of the substance**](#Component-identifying)
   - AI will become a "scientific detective" and help you identify the molecular structure of materials in one second, restoring the truth from the microscopic world that is invisible to the naked eye.
   - Whether it is experimental materials, daily necessities, or complex samples, spectral data can be used for intelligent analysis to quickly identify materials and make accurate judgments.
 - [**Matching substance related database**](#analysis-of-stokes-vector)
@@ -31,9 +31,17 @@
 
 ## Usage
 
-### Polarization demosaicing
+### Component identifying
 
-Demosaic raw polarization image captured with a polarization sensor (*e.g.*, [IMX250MZR / MYR](https://www.sony-semicon.com/en/products/is/industry/polarization.html)).
+Focusing on the application of optical spectroscopy technology in the field of ore composition analysis, this paper expounds its core principles, technical processes and application value. The combination of optical spectroscopy technology and AI algorithms provides efficient and accurate solutions for ore element detection and structural analysis, which is of great significance in geological research and resource development. ​
+
+In the field of mineralogical research and resource exploration, accurate analysis of ore composition is the key to revealing the laws of geological evolution and developing mineral resources. Traditional analysis methods have problems such as low efficiency and insufficient precision, while optical spectroscopy technology has become the cutting-edge means of ore composition analysis with its non-destructive, fast and highly sensitive characteristics. ​
+
+Optical spectroscopy technology mainly uses Fourier transform infrared spectrometers, X-ray fluorescence spectrometers and other equipment for analysis. When light interacts with ore samples, different elements and mineral structures have different absorption, emission and scattering characteristics of light, and these differences are presented in the form of spectral curves. After collecting spectral data, researchers input them into the AI ​​analysis system, compare them with standard spectra in the spectral database, and combine machine learning algorithms to achieve accurate analysis of ore element types, contents and crystal structures.​
+
+This technology has achieved remarkable results in many fields. In geological evolution research, by analyzing the composition of ores, geological activities in the earth's history can be traced; in resource exploration, rare metal veins can be efficiently located to help strategic resource development; in the field of new material research and development, accurate composition analysis provides data support for the optimization of mineral material performance. The integration of optical analysis and AI technology has increased the efficiency of ore composition analysis by more than 60%, and the detection accuracy has reached the ppm level. ​
+
+The combination of optical spectroscopy technology and AI algorithms has revolutionized the ore composition analysis mode. In the future, with the improvement of the spectral database and the continuous optimization of the algorithm, this technology will achieve breakthroughs in the analysis of complex mineral systems and in-situ real-time detection, providing stronger support for mineralogical research and sustainable resource utilization. ​.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="documents/demosaicing_dark.png">
