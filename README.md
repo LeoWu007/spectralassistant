@@ -10,15 +10,15 @@
 - [**Identifying the main component information of the substance**](#Component-identifying)
   - AI will become a "scientific detective" and help you identify the molecular structure of materials in one second, restoring the truth from the microscopic world that is invisible to the naked eye.
   - Whether it is experimental materials, daily necessities, or complex samples, spectral data can be used for intelligent analysis to quickly identify materials and make accurate judgments.
-- [**Matching substance related database**](#analysis-of-stokes-vector)
+- [**Matching substance related database**](#Database-matching)
   - How to intelligently read, classify and model spectral data.
   - From material detection to environmental monitoring, how does AI accelerate the analysis process.
   - Create a unique "high-dimensional spectral knowledge base" to truly unlock the value of experimental data.
-- [**Analysis of massive data**](#analysis-of-mueller-matrix)
+- [**Analysis of massive data**](#Analysis-of-massive-data)
   - Support multi-dimensional data fusion processing.
   - Quickly identify anomalies and patterns.
   - Output visual graphs and human language conclusions.
-- [**Collaboration with Multi-agent**](#visualizing-polarimetric-images)
+- [**Collaboration with Multi-agent**](#Multi-agent)
   - Apply colormap to polarization images, such as DoLP, AoLP, ToP, and CoP.
   - Visualize the Mueller matrix image in grid form.
 
@@ -46,171 +46,87 @@ The combination of optical spectroscopy technology and AI algorithms has revolut
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="documents/demosaicing_dark.png">
   <source media="(prefers-color-scheme: light)" srcset="documents/demosaicing_light.png">
-  <img alt="demosaicing" src="documents/demosaicing_light.png">
+  <img alt="identifying" src="documents/demosaicing_light.png">
 </picture>
 
-```python
-import cv2
-import polanalyser as pa
 
-img_raw = cv2.imread("dataset/dragon.png", 0)
+### Database matching
 
-img_000, img_045, img_090, img_135 = pa.demosaicing(img_raw, pa.COLOR_PolarMono)
-# img_000, img_045, img_090, img_135 = pa.demosaicing(img_raw, pa.COLOR_PolarRGB)
-```
+In the context of the rapid development of artificial intelligence technology, the quality and scale of the database directly affect the analytical ability of the intelligent body. Building a multi-domain database and integrating interdisciplinary data resources can provide a comprehensive and accurate data foundation for the intelligent analysis of complex problems and meet the research and application needs of different fields. ​
 
-### Analysis of Stokes vector
+Multi-domain database architecture and content​
+(I) Mineral field database​
+This database contains information on rare and common minerals, including precious minerals such as gold and diamonds, as well as industrial minerals such as iron and copper. The data covers the physical and chemical properties, spectral spectra, crystal structures, etc. of ores, providing accurate analysis basis for geological exploration and mineral processing. ​
+(II) Wine field database​
+Integrate data on Chinese liquor, wine, whiskey and other liquors, involving brewing processes, component analysis, flavor substance maps, etc., to help wine quality identification, new product research and development and industrial development. ​
+(III) Biological field database​
+Build a full-dimensional data system from microscopic bacteria and viruses to macroscopic animals and plants, including biological morphological images, gene sequences, metabolite chemical formulas, etc., to provide data support for biodiversity research and ecosystem modeling.​
+(IV) Database in the agricultural field​
+Includes crop variety information, growth characteristics, pest and disease maps and other data, realizes one-click analysis of agricultural production data, and empowers food security and the development of smart agriculture. ​
+(V) Database in the field of aerospace materials​
+Focus on the research and development and application of aerospace materials, record data such as material performance parameters and space environment adaptability, support rapid matching and in-depth analysis of aerospace materials, and accelerate the process of aerospace technology innovation. ​
 
-[**Stokes vector**](https://en.wikipedia.org/wiki/Stokes_parameters) describes the polarization states. We can measure these values by using a *linear polarizer* (To measure the circular polarization $s_3$, we also need to use a *retarder*).
+Database construction method and value​
+This database systematically sorts out authoritative resource libraries at home and abroad, and adopts standardized data collection and processing procedures to ensure data accuracy and reliability. Its value is reflected in: first, it provides rich data samples for intelligent analysis and significantly shortens the experimental cycle; second, it improves the intelligent body's ability to analyze complex problems and achieve accurate judgment and decision-making; third, it optimizes the user's data usage experience through convenient retrieval methods. ​
+
+The construction of multi-domain databases effectively enhances intelligent analysis capabilities. In the future, we will continue to expand the data scale, optimize the data structure, and explore cross-domain data fusion analysis to provide more powerful data support for more cutting-edge research and industrial applications. ​
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="documents/stokes_setup_dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="documents/stokes_setup_light.png">
-  <img alt="Stokes setup" src="documents/stokes_setup_light.png">
-</picture>
-
   <source media="(prefers-color-scheme: dark)" srcset="documents/mueller_setup_dark.png">
   <source media="(prefers-color-scheme: light)" srcset="documents/mueller_setup_light.png">
   <img alt="Mueller setup" src="documents/mueller_setup_light.png">
 </picture>
 
-$I$ denotes the intensity of the unpolarized light source. $`\mathbf{M}_\textrm{PSG}`$ and $`\mathbf{M}_\textrm{PSA}`$ represent the Polarization state generator and analyzer (PSG and PSA) in Mueller matrix form. PSG and PSA are commonly composed of the basic optical elements (i.e., linear polarizer and retarder).
-The detector measures the intensity $f$ expressed by $`f = [ \mathbf{M}_\textrm{PSA} \mathbf{M} \mathbf{M}_\textrm{PSG} I]_{00}`$. $[...]_{00}$ extracts the (0, 0) component of the matrix.
 
-Measuring $f$ by changing many combinations of $`\mathbf{M}_\textrm{PSG}`$ and $`\mathbf{M}_\textrm{PSA}`$ can estimate the unknown Mueller matrix $`\mathbf{M}`$ with a linear least-squares method.
+### Analysis of massive data
 
-The following code shows the example to estimate the 3x3 Mueller matrix image.
+The functional architecture and technical implementation of the spectral data processing system cover modules such as data preprocessing, basic analysis, advanced analysis and visual presentation. Through preprocessing operations such as smoothing and baseline removal, combined with PCA, PLS and machine learning algorithms, efficient analysis of spectral data can be achieved, and the results can be output in the form of visual charts and reports, providing reliable data processing support for multi-field research.
 
-```python
-import polanalyser as pa
+Spectral analysis is the core technology for the study of material composition and structure, and the accuracy of data processing directly affects the reliability of the analysis results. This system integrates intelligent spectral data processing technology, from preprocessing to advanced analysis, to build a full-process solution to help scientific research and industry maximize the value of spectral data.
 
-# Read 16 images and Mueller matrices of PSG and PSA
-filepath = "dataset/toy_example_3x3_pc"
-images, props = pa.imreadMultiple(filepath)
-print(images.shape)  # (16, 2048, 2448)
-mm_psg = props["mueller_psg"] # (16, 3, 3)
-mm_psa = props["mueller_psa"] # (16, 3, 3)
+Spectral data processing technology architecture
+(I) Preprocessing module
+Smoothing: Using algorithms such as Savitzky-Golay filtering, convolution operations are performed on the original spectral data through sliding windows to effectively reduce noise interference and improve the continuity and stability of the spectral curve.
+Baseline removal: Using polynomial fitting, adaptive iterative algorithms and other technologies, the baseline drift in the spectrum is accurately identified and removed, making the characteristic peaks clearer and facilitating subsequent analysis.
+(II) Analysis module
+Basic analysis: The key wavelength signal is locked by the characteristic peak extraction algorithm, combined with the built-in standard spectral database, and the cosine similarity, Euclidean distance and other measurement methods are used to achieve preliminary matching and qualitative analysis of material components.
+Advanced analysis:
+PCA data dimension reduction: Based on principal component analysis, high-dimensional spectral data is mapped to low-dimensional space, retaining the main feature information, reducing data redundancy and computational complexity.
+PLS regression analysis: The quantitative model of spectral data and material concentration is established through partial least squares method to achieve simultaneous determination of multiple components.
+Machine learning classification: Using support vector machine (SVM), random forest and other algorithms, a spectral data classification model is constructed to achieve rapid identification and category determination of materials.
+(III) Visualization and report output
+The system converts the processing results into intuitive visualization charts, such as spectral comparison charts, component distribution charts, etc., and provides vector format export functions such as SVG to support users' in-depth research. At the same time, a structured analysis report is automatically generated, covering data processing parameters, analysis conclusions and error evaluation.
+After the user uploads the spectral data, the operation can be triggered by text instructions or voice input. The system background uses parallel computing and optimization algorithms to complete processing within seconds. The visual interface supports interactive operations, and users can obtain detailed data information by zooming, hovering, etc., which significantly improves the convenience of operation and the accuracy of results.
 
-# Calculate Mueller matrix image
-img_mueller = pa.calcMueller(images, mm_psg, mm_psa)
-print(img_mueller.shape)  # (2048, 2448, 3, 3)
-```
+This spectral data processing system uses intelligent technology to achieve efficient analysis of the entire process. In the future, it will continue to optimize algorithm performance and expand the fusion processing capabilities of multi-source spectral data, providing more powerful technical support for fields such as materials science, environmental monitoring, and food testing.
 
-![](documents/mueller_various.jpg)
+### Multi agent
 
-### Analysis of mueller matrix
-### Visualizing polarimetric images
+Focus on the file parsing and agent interaction technology of the spectral data processing system. The system uses innovative multi-format parsing algorithms to achieve efficient processing of spectral data files with different structures; at the same time, based on the agent collaboration mechanism, it optimizes the task execution process, significantly improves the efficiency and flexibility of complex data processing, and provides technical support for multi-scenario spectral data analysis.
 
-### Stokes vector visualization
+In the field of spectral data analysis, the diversity of data file formats often leads to parsing difficulties and affects analysis efficiency. In addition, the traditional single functional module independent operation mode is difficult to meet the needs of complex tasks. The spectral data processing system introduced in this article realizes the intelligent upgrade of the entire data processing process by overcoming the multi-format parsing problem and building an agent interaction system.
 
-Polanalyser provides functions to visualize Stokes vector images, such as AoLP, DoLP, ToP (Type of Polarization), and CoP (Chirality of Polarization). The color mapping is designed based on the relevant papers [[Wilkie and Weidlich, SCCG2010]](https://dl.acm.org/doi/10.1145/1925059.1925070), [[Baek+, SIGGRAPH2020]](http://vclab.kaist.ac.kr/siggraph2020/index.html), [[Jeon+, CVPR2024]](https://eschoi.com/SPDataset/). Note that this mapping is slightly different from the original papers.
+Multi-format spectral data analysis technology
+(I) Analysis algorithm design
+The system uses regular expression matching, dynamic data structure analysis and other technologies to process spectral data files of different formats:
+Vertical single-column data: For "wavelength-intensity" single-column arrangement files, quickly locate data columns through preset rules, and extract the corresponding relationship between wavelength and intensity;
+File with header: Use natural language processing technology to parse header information, identify key data identifiers, and automatically map to system data structure;
+Multi-column intensity data: Based on data feature pattern matching, distinguish intensity data of different samples or parameters to achieve batch analysis;
+Horizontally arranged data: Through row and column conversion algorithms, reconstruct horizontal data into standard vertical format to ensure compatibility of subsequent analysis.
+(II) Application process and effect
+Users can import data by uploading files or dragging and dropping, and the system automatically identifies the file format and performs analysis. Taking smoothing and baseline removal as an example, the parsed data can directly enter the processing process and generate visual results within seconds, avoiding manual conversion and data loss caused by format differences, greatly improving data processing efficiency.
 
-```python
-# Example of visualization functions
-img_aolp_vis = pa.applyColorToAoLP(img_aolp)
-img_dolp_vis = pa.applyColorToDoP(img_dolp)
-img_top_vis = pa.applyColorToToP(img_ellipticity_angle, img_dop)
-img_cop_vis = pa.applyColorToCoP(img_ellipticity_angle)
-```
+Agent collaborative interaction mechanism
+(I) Architecture design
+System construction "Import-Process-Output" multi-agent collaborative architecture:
+Import agent: responsible for file parsing and data preprocessing, converting raw data into a system-recognizable format;
+Processing agent: based on the parsed data, performs smoothing, baseline removal, analysis and other tasks;
+Output agent: generates visual charts and reports based on the processing results, and provides data export function.
+(II) Collaborative interaction principle
+Agents interact through message passing and data sharing: each agent sends a collaboration request according to task requirements, and the receiver dynamically adjusts the strategy based on feedback. For example, the processing agent can automatically select the optimal processing algorithm based on the data characteristics provided by the import agent; the output agent optimizes the visualization presentation method based on the processing results. This collaborative mechanism significantly improves the system's adaptability and processing efficiency for complex tasks.
 
-Here is an example of visualizing the Stokes vector images. The stokes image is borrowed from the spectro-polarimetric dataset [[Jeon+, CVPR2024]](https://huggingface.co/datasets/jyj7913/spectro-polarimetric).
-
-|||||
-|:-:|:-:|:-:|:-:|
-| s0 | s1 | s2 | s3 |
-|![](documents/visualization/color.jpeg)|![](documents/visualization/s1.jpeg)|![](documents/visualization/s2.jpeg)|![](documents/visualization/s3.jpeg)|
-| DoLP | AoLP | AoLP (light) | AoLP (dark) |
-|![](documents/visualization/dolp.jpeg)|![](documents/visualization/aolp.jpeg)|![](documents/visualization/aolp_light.jpeg)|![](documents/visualization/aolp_dark.jpeg)|
-| DoP | DoCP | ToP | CoP |
-|![](documents/visualization/dop.jpeg)|![](documents/visualization/docp.jpeg)|![](documents/visualization/top.jpeg)|![](documents/visualization/cop.jpeg)|
-
-In AoLP visualization, Polanalyser provides three types of AoLP visualization: AoLP, AoLP (light), and AoLP (dark). For more details, [see the wiki page](https://github.com/elerac/polanalyser/wiki/How-to-Visualizing-the-AoLP-Image).
-
-### Mueller matrix visualization
-
-Polanalyser provides functions to apply a colormap and make a 3x3 or 4x4 grid to visualize the Mueller matrix image.
-
-Before visualizing the Mueller matrix image, we need to normalize the Mueller matrix. Here are three possible options, each with pros and cons. You need to choose the appropriate normalization method according to the purpose of the visualization and the chosen colormap.
-
-```python
-# Normalize Mueller matrix image
-# img_mueller: (H, W, 3, 3)
-
-# Option 1: Normalize by the maximum value
-# Pros: Show values linearly
-# Cons: The small values may not be visible
-img_mueller_maxnorm = img_mueller / np.abs(img_mueller).max()  
-
-# Option 2: Gamma correction
-# Pros: Enhance the small values
-# Cons: The large values become saturated
-img_mueller_gamma = pa.gammaCorrection(img_mueller_maxnorm)  
-
-# Option 3: m00 norm (scale by m00 value of each pixel)
-# Pros: Visualizes polarization components ratio independently of the intensity
-# Cons: m00 becomes 1, and cannot represent the absolute intensity
-img_mueller_m00norm = img_mueller / img_mueller[..., 0, 0][..., None, None]  
-```
-
-After normalizing the Mueller matrix image, we can apply a colormap and make a grid to visualize the Mueller matrix image.
-
-```python
-# Apply colormap and make grid
-img_mueller_norm_vis = pa.applyColorMap(img_mueller_maxnorm, "RdBu", -1, 1)  # (H, W, 3, 3, 3)
-img_mueller_norm_vis_grid = pa.makeGridMueller(img_mueller_maxnorm_vis) # (H*3, W*3, 3)
-```
-
-| Max norm | Max norm + Gamma | m00 norm |
-|:--------------:|:--------------:|:--------------:|
-|![](documents/visualization/mueller_maxnorm_vis_grid.jpeg)|![](documents/visualization/mueller_gamma_vis_grid.jpeg)|![](documents/visualization/mueller_m00norm_vis_grid.jpeg)|
-
-### Symbolic Stokes-Mueller computation
-
-This feature supports the symbolic computation of the Stokes vector and Mueller matrix powered by SymPy. This feature is particularly useful for understanding the effects of complex combinations of optical elements. 
-
-Here are examples of Malus's law and an ellipsometer. We can symbolically obtain the intensity of light passing through the sequence of optical elements without tedious calculations by hand.
-
-```python
-from sympy import symbols, simplify
-import polanalyser.sympy as pas
-
-theta = symbols("theta", real=True)
-
-# Example 1: Malus's law
-M_L1 = pas.polarizer(0)
-M_L2 = pas.polarizer(theta)
-f = (M_L2 @ M_L1)[0, 0]  
-print(simplify(f))  
-# 0.5*cos(theta)**2
-
-# Example 2: Ellipsometer [Azzam+, 1978][Baek+, 2020]
-M = pas.mueller()  # Symbolic Mueller matrix
-I = 1.0
-M_PSG = pas.qwp(theta) @ pas.polarizer(0)
-M_PSA = pas.polarizer(0) @ pas.qwp(5 * theta)
-f = (M_PSA @ M @ M_PSG * I)[0, 0] 
-print(simplify(f))  
-# 0.25*m00 + 0.25*m10*cos(10*theta)**2 + 0.125*m20*sin(20*theta) - 0.25*m30*sin(10*theta) + 0.25*(m01 + m11*cos(10*theta)**2 + m21*sin(20*theta)/2 - m31*sin(10*theta))*cos(2*theta)**2 + 0.25*(m02 + m12*cos(10*theta)**2 + m22*sin(20*theta)/2 - m32*sin(10*theta))*sin(2*theta)*cos(2*theta) + 0.25*(m03 + m13*cos(10*theta)**2 + m23*sin(20*theta)/2 - m33*sin(10*theta))*sin(2*theta)
-```
-
-## Notations
-
-Please refer to the [notations.md](documents/notations.md) for the definition of the Stokes vector and Mueller matrix used in Polanalyser.
-
-
-## Citation
-
-If you find Polanalyser useful, please consider citing as follows:
-
-```bibtex
-@software{maeda2019polanalyser,
-  author = {Ryota Maeda},
-  title = {Polanalyser: Polarization Image Analysis Tool},
-  url = {https://github.com/elerac/polanalyser},
-  year = {2019},
-}
-```
-
+Technical advantages and application prospects
+The multi-format parsing and agent interaction technology of this system effectively solves the format compatibility and complex task execution problems in spectral data processing. In the future, the functional boundaries of intelligent agents will be further expanded, and more advanced algorithms will be integrated to provide more powerful intelligent data processing support for fields such as materials science and environmental monitoring.
 ## Related Project
 
 If you like Polanalyser, you are also interested in the following paper.
