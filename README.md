@@ -44,9 +44,7 @@ This technology has achieved remarkable results in many fields. In geological ev
 The combination of optical spectroscopy technology and AI algorithms has revolutionized the ore composition analysis mode. In the future, with the improvement of the spectral database and the continuous optimization of the algorithm, this technology will achieve breakthroughs in the analysis of complex mineral systems and in-situ real-time detection, providing stronger support for mineralogical research and sustainable resource utilization. ​.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="documents/demosaicing_dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="documents/demosaicing_light.png">
-  <img alt="identifying" src="documents/demosaicing_light.png">
+  <img alt="identifying" src="assets/01.png">
 </picture>
 
 
@@ -66,16 +64,14 @@ Includes crop variety information, growth characteristics, pest and disease maps
 (V) Database in the field of aerospace materials​
 Focus on the research and development and application of aerospace materials, record data such as material performance parameters and space environment adaptability, support rapid matching and in-depth analysis of aerospace materials, and accelerate the process of aerospace technology innovation. ​
 
+<picture>
+  <img alt="matching" src="assets/01.png">
+</picture>
+
 Database construction method and value​
 This database systematically sorts out authoritative resource libraries at home and abroad, and adopts standardized data collection and processing procedures to ensure data accuracy and reliability. Its value is reflected in: first, it provides rich data samples for intelligent analysis and significantly shortens the experimental cycle; second, it improves the intelligent body's ability to analyze complex problems and achieve accurate judgment and decision-making; third, it optimizes the user's data usage experience through convenient retrieval methods. ​
 
 The construction of multi-domain databases effectively enhances intelligent analysis capabilities. In the future, we will continue to expand the data scale, optimize the data structure, and explore cross-domain data fusion analysis to provide more powerful data support for more cutting-edge research and industrial applications. ​
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="documents/mueller_setup_dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="documents/mueller_setup_light.png">
-  <img alt="Mueller setup" src="documents/mueller_setup_light.png">
-</picture>
 
 
 ### Analysis of massive data
