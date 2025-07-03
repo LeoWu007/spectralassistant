@@ -112,6 +112,10 @@ Horizontally arranged data: Through row and column conversion algorithms, recons
 (II) Application process and effect
 Users can import data by uploading files or dragging and dropping, and the system automatically identifies the file format and performs analysis. Taking smoothing and baseline removal as an example, the parsed data can directly enter the processing process and generate visual results within seconds, avoiding manual conversion and data loss caused by format differences, greatly improving data processing efficiency.
 
+<picture>
+  <img alt="matching" src="assets/04.png">
+</picture>
+
 Agent collaborative interaction mechanism
 (I) Architecture design
 System construction "Import-Process-Output" multi-agent collaborative architecture:
@@ -123,12 +127,3 @@ Agents interact through message passing and data sharing: each agent sends a col
 
 Technical advantages and application prospects
 The multi-format parsing and agent interaction technology of this system effectively solves the format compatibility and complex task execution problems in spectral data processing. In the future, the functional boundaries of intelligent agents will be further expanded, and more advanced algorithms will be integrated to provide more powerful intelligent data processing support for fields such as materials science and environmental monitoring.
-## Related Project
-
-If you like Polanalyser, you are also interested in the following paper.
-
-<<<<<<< HEAD
-- Ryota Maeda, Shinsaku Hiura, **Polarimetric Light Transport Analysis for Specular Inter-reflection**,  IEEE Transactions on Computational Imaging, 2024. [[Project Page]](https://elerac.github.io/projects/PolarimetricInterreflection/)
-=======
-- Ryota Maeda, Shinsaku Hiura, **Polarimetric Light Transport Analysis for Specular Inter-reflection**,  IEEE Transactions on Computational Imaging, 2024. [[Project Page]](https://elerac.github.io/projects/PolarimetricInterreflection/)
->>>>>>> github_publish
