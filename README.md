@@ -94,6 +94,10 @@ Machine learning classification: Using support vector machine (SVM), random fore
 The system converts the processing results into intuitive visualization charts, such as spectral comparison charts, component distribution charts, etc., and provides vector format export functions such as SVG to support users' in-depth research. At the same time, a structured analysis report is automatically generated, covering data processing parameters, analysis conclusions and error evaluation.
 After the user uploads the spectral data, the operation can be triggered by text instructions or voice input. The system background uses parallel computing and optimization algorithms to complete processing within seconds. The visual interface supports interactive operations, and users can obtain detailed data information by zooming, hovering, etc., which significantly improves the convenience of operation and the accuracy of results.
 
+<picture>
+  <img alt="identifying" src="assets/03.png">
+</picture>
+
 This spectral data processing system uses intelligent technology to achieve efficient analysis of the entire process. In the future, it will continue to optimize algorithm performance and expand the fusion processing capabilities of multi-source spectral data, providing more powerful technical support for fields such as materials science, environmental monitoring, and food testing.
 
 ### Multi agent
