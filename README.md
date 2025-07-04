@@ -19,8 +19,9 @@
   - Quickly identify anomalies and patterns.
   - Output visual graphs and human language conclusions.
 - [**Collaboration with Multi-agent**](#Multi-agent)
-  - Apply colormap to polarization images, such as DoLP, AoLP, ToP, and CoP.
-  - Visualize the Mueller matrix image in grid form.
+  - One-click access to multi-format heterogeneous data.
+  - Multi-agent collaborative recognition + understanding + generation.
+  - Distributed call, parallel processing, intelligent instruction scheduling.
 
 ## Dependencies and Installation
 
